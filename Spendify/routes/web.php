@@ -1,6 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\ConfirmPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +26,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::view('/','home');
+
+Route::get('/',[CategoryController::class, 'showCategories'])->name('home');
+
+
+Route::group(['prefix' => 'Users','controller' => UserController::class], function()
+	{
+		//Route::resetPassword();
+		Route::get('/','showAllUsers')->name('users');
+		Route::get('/CreateUser', 'showCreateUser')->name('user.create');
+
+	});
 
 	Route::group(['controller' => LoginController::class], function()
 	{
@@ -28,23 +46,30 @@ Route::view('/','home');
 	});
 
 
+	Route::group(['controller' => ForgotPasswordController::class], function()
+	{
+		//Route::resetPassword();
+		Route::get('password/reset', 'showLinkRequestForm')->name('password.request');
+		Route::post('password/email', 'sendResetLinkEmail')->name('password.email');
+	});
 
-	Route::resetPassword();
+	Route::group(['controller' => ResetPasswordController::class], function()
+	{
+		Route::get('password/reset/{token}', 'showResetForm')->name('password.reset');
+		Route::post('password/reset', 'reset')->name('password.update');
+	});
 
-	Route::get('password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
-	Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
+	Route::group(['controller' => ConfirmPasswordController::class], function()
+	{
+		Route::get('password/confirm', 'Auth\ConfirmPasswordController@showConfirmForm')->name('password.confirm');
+		Route::post('password/confirm', 'Auth\ConfirmPasswordController@confirm');
+	});
 
-	Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-	Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-	Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-	Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+	Route::group(['controller' => VerificationController::class], function()
+	{
+		Route::get('email/verify', 'show')->name('verification.notice');
+		Route::get('email/verify/{id}/{hash}', 'verify')->name('verification.verify');
+		Route::post('email/resend', 'resend')->name('verification.resend');
 
+	});
 
-
-	Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-	Route::get('email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-	Route::post('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

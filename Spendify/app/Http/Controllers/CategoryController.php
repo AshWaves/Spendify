@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+	public function showCategories()
+	{
+		$categories = $this->getAllCategories()->original['categories'];
+		return view('index', compact('categories'));
+	}
     //
 	public function getAllCategories()
 	{
@@ -31,5 +37,11 @@ class CategoryController extends Controller
 	{
 		$category->delete();
 		return response()->json([], 204);
+	}
+
+	public function showCategoriesWhithProducts()
+	{
+		$categoires = Category::with('Products')->get();
+		return view('home', compact('categories'));
 	}
 }

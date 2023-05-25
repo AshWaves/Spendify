@@ -22,7 +22,7 @@ class ProductFactory extends Factory
         return [
             'category_id' =>$this->faker->numberBetween(1,6),
 			'seller_id' => $this->faker->numberBetween(1,10),
-			'name' => $this->faker->name(),
+			'name' => $this->faker->name(),  //use random text
             'price' => $this->faker->randomNumber(),
             'stock' => $this->faker->numberBetween(1,10),
 			'status' =>$arrayValues[rand(0,1)],

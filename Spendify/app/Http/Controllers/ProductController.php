@@ -10,17 +10,14 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
 
-
+	
     //
 	public function getAllProducts()
 	{
 		$product =Product::get();
 		return response()->json(['product' => $product], 200);
 	}
-	public function getAnUser(Product $product)
-	{
-		return response()->json(['product' => $product],200);
-	}
+
 	public function createProduct(CreateProductRequest $request)
 	{
 		$product = new Product($request->all());
