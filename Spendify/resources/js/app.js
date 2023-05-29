@@ -6,8 +6,9 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-import ExampleComponent from './components/ExampleComponent.vue';
-
+import ExampleComponent from './components/ExampleComponent.vue'
+// import ProductsList from './components/products/index.vue'
+// import MiComponente from './components/MiComponente.vue'
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -17,9 +18,13 @@ import ExampleComponent from './components/ExampleComponent.vue';
 
 const app = createApp({
 	components:{
-		ExampleComponent
+		ExampleComponent,
+		ProductsList,
+		MiComponente,
+		CategoryTable
 	}
 });
+
 
 
 /**
@@ -41,3 +46,4 @@ const app = createApp({
  */
 
 app.mount('#app');
+app.component('v-select', vSelect)

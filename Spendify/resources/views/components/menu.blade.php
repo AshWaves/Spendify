@@ -1,9 +1,10 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+{{-- Menu --}}
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm btn btn-info">
 	<div class="container">
 		<a class="navbar-brand" href="{{ url('/') }}">Spendify</a>
 
 		{{-- Haburguesa --}}
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+		<button class=" navbar-toggler btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -37,17 +38,16 @@
 						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 							@role('admin')
 								{{-- Users --}}
-								<a class="dropdown-item" href="{{ route('users') }}">Usuarios</a>
+								<a class="dropdown-item" href="{{ route('users') }}">Users</a>
 
+								{{-- Products--}}
+								<a class="dropdown-item" href="{{ route('products') }}">Products</a>
 							@endrole
 
 							{{-- Logout --}}
 							<a class="dropdown-item" href="{{ route('logout') }}"
 							   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout
 							</a>
-
-							{{-- Category Products --}}
-							<a class="dropdown-item" href="/category-products/index">Category Products</a>
 
 
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

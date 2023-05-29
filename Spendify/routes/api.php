@@ -21,7 +21,7 @@ Route::group(['prefix' => 'Users', 'controller' => UserController::class],functi
 	Route::get('/GetAllUser', 'getAllUsers');
 	Route::get('/GetAllSalesByUser/{user}', 'getAllSalesByUser');
 	Route::get('/GetAllUsersWithSales', 'getAllUsersWithSales');
-	Route::post('/CreateUser', 'createUsers');
+	Route::post('/CreateUser', 'createUser');
 	Route::put('/UpdateUser/{user}', 'updateUser');
 	Route::delete('/DeleteUser/{user}', 'deleteUser');
 });

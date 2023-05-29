@@ -2,12 +2,13 @@
 	<section class="container my-5">
 		<div class="card">
 			<div class="card-header">
-				<h2>User Create</h2>
+				<h2>Product Edit</h2>
 			</div>
 			<div class="card-body">
-				<form action="{{route('user.create.post')}}" method="POST">
+				<form action="{{route('product.edit.put', ['product' => $product->id])}}" method="POST">
 					@csrf
-					<x-user.form-user :roles="$roles" />
+					@method('PUT')
+					<x-product.form-product />
 				</form>
 			</div>
 		</div>

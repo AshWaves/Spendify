@@ -25,18 +25,23 @@
 
 
 <x-app title="Spendify">
-    <section class="d-flex justify-content-center flex-wrap">
-        @foreach ($categories as $category)
-            <div class="card my-3 mx-4" style="width: 18rem;">
-                <img src="https://api.api-ninjas.com/v1/randomimage?category='city'" class="card-img-top"
-                    alt="Category-img">
-                <div class="card-body">
-                    <h5 class="card-title">{{ $category->name }}</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
-        @endforeach
-    </section>
+	<h3 class="d-flex justify-content-center">Welcom to Spendify</h3>
+	<section class="d-flex justify-content-center flex-wrap">
+
+		@foreach ($categories as $category )
+			<div class="card mx-3 my-3" style="width: 18rem;">
+				{{-- <h5>Category</h5> --}}
+				@if ($category->image)
+					<img src="/storage/images/categories/{{$category->image}}" class="card-img-top" alt="Category">
+				@else
+					<img src="http://localhost/Spendify-app/Spendify/resources/views/yzto5jns.bmp" class="card-img-top" >
+				@endif
+
+				<div class="card-body">
+					<h5 class="card-title">{{$category->name}}</h5>
+					<a href="#" class="btn btn-primary">View</a>
+				</div>
+			</div>
+		@endforeach
+	</section>
 </x-app>

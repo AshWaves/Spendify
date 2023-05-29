@@ -19,41 +19,40 @@ class CreateUserRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
 			'document_id' => ['required', 'numeric', 'unique:users,document_id'],
-            'name' => ['required', 'string'],
+			'name' => ['required', 'string'],
 			'last_name' => ['required', 'string'],
 			'email' => ['required', 'email', 'unique:users,email'],
-			'password' => ['required', 'string', 'min:10','confirmed'],
+			'password' => ['required', 'string', 'min:8', 'confirmed'],
 			'address' => ['required', 'string'],
+			'role' => ['required'],
 
         ];
     }
 	public function messages()
 	{
 		return[
-			'document_id.required' => 'Debes ingresar el nombre',
-			'document_id.numeric' => 'Este nombre no es valido',
-			'document_id.unique' => 'Este documento ya existe',
+			'name.required' => 'El nombre es requerido.',
+			'name.string' => 'El nombre no es valido.',
 
-			'name.required' => 'Debes ingresar el nombre',
-			'name.string' => 'Este nombre no es valido',
+			'last_name.required' => 'El apellido es requerido.',
+			'last_name.string' => 'El apellido no es valido.',
 
-			'last_name.required' => 'Debes ingresar el apellido',
-			'last_name.string' => 'Este apellido no es valido',
+			'document_id.required' => 'El documento es requerido.',
+			'documento_id.string' => 'El documento no es un numero.',
+			'document_id.unique' => 'El documento ya fue tomado.',
 
+			'email.required' => 'El correo es requerido.',
+			'email.email' => 'El correo debe de ser valido.',
+			'email.unique' => 'El correo ya fue tomado.',
 
-			'email.required' => 'Debes ingresar el correo',
-			'email.email' => 'El correo no es valido',
-			'email.unique' => 'Este correo ya existe',
-
-
-			'password.required' => 'Debes ingresar la contraseña',
-			'password.string' => 'La contraseña no es valida',
-			'password.min' => 'La contraseña es muy corta (min 10)',
-			'password.confirmed' => 'Las contraseñas no coinciden',
+			'password.required' => 'La contraseña es requerida.',
+			'password.string' => 'La contraseña debe de ser valida.',
+			'password.min' => 'La contraseña es muy corta (min 8).',
+			'password.confirmed' => 'La contraseña no coincide.',
 
 			'address.required' => 'Debes ingresar la direccion',
 			'address.string' => 'La contraseña no es valida',

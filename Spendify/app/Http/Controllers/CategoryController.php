@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Requests\Category\CreateCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
-use App\Models\Category;
-use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -43,5 +44,14 @@ class CategoryController extends Controller
 	{
 		$categoires = Category::with('Products')->get();
 		return view('home', compact('categories'));
+	}
+
+	private function uploadImages($request, &$category)
+	{
+		if (!isset($request->image)) return;
+		$random = Str::random(20);
+		$image_name = "{$random}.{$request->image->clientExtension()}";
+		$request->image->move(storage_path('app/public/images/categories'), $image_name);
+		$category->image = $image_name;
 	}
 }
